@@ -97,3 +97,11 @@
 
 5.Hotfix分支，用于修复出现在已经上线的main分支中的bug，bug修复完成后需要合并到新的main分支，并打上修复缺陷tag，还需要合并到dev分支或release分支。
 
+### 命令习惯
+
+1.使用merge时必须添加以下参数`--no-ff`，如
+
+```
+ git merge --no-ff myfeature
+```
+
