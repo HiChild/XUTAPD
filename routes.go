@@ -8,8 +8,7 @@ import (
 func CollectRoutes(r *gin.Engine) *gin.Engine {
 	accountGroup := r.Group("auth")
 	accountGroup.POST("/register", controller.Register)
-	accountGroup.POST("/login", func(ctx *gin.Context) {
-	})
+	accountGroup.POST("/login", controller.Login)
 
 
 	return r
