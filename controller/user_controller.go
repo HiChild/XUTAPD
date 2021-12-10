@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
+	"log"
 	"net/http"
 )
 
@@ -77,7 +78,12 @@ func Login(ctx *gin.Context) {
 		return
 	}
 	//发放token
-	token:= "11"
+	token , err := common.ReleaseToken(user)
+	if err != nil {
+		response.Fail(ctx, nil, "系统异常")
+		log.Printf("token generator error : %v", err)
+		return
+	}
 	//返回结果
 	response.Success(ctx, gin.H{"token": token}, "登录成功")
 }
@@ -89,4 +95,10 @@ func isUserNameExists(DB *gorm.DB, username string) bool {
 		return true
 	}
 	return false
+}
+
+func GetInfo(ctx *gin.Context) {
+	user, _ := ctx.Get("user")
+
+	response.Success(ctx, gin.H{"user":user}, "ok")
 }
