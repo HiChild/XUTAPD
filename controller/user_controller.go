@@ -2,6 +2,7 @@ package controller
 
 import (
 	"XUTAPD/common"
+	"XUTAPD/dto"
 	"XUTAPD/models"
 	"XUTAPD/response"
 	"github.com/gin-gonic/gin"
@@ -100,5 +101,5 @@ func isUserNameExists(DB *gorm.DB, username string) bool {
 func GetInfo(ctx *gin.Context) {
 	user, _ := ctx.Get("user")
 
-	response.Success(ctx, gin.H{"user":user}, "ok")
+	response.Success(ctx, gin.H{"user":dto.ToUserDTO(user.(models.User))}, "ok")
 }
