@@ -44,7 +44,10 @@ func Register (ctx *gin.Context) {
 		Password: string(hashPassword),
 	}
 
-	DB.Create(&newUser)
+	if err := DB.Create(&newUser).Error; err != nil {
+		response.Fail(ctx, gin.H{"err":err}, "数据库创建失败")
+		return
+	}
 
 	response.Success(ctx, gin.H{"user":newUser}, "注册成功")
 }

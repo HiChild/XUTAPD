@@ -1,0 +1,11 @@
+server:
+  port: 8080
+datasource:
+  driverName: mysql
+  host: 120.53.228.79
+  port: 3306
+  username: root
+  password: 7WzhXRTJdSEZWknE
+  database: xutapd
+  charset: utf8mb4
+  loc: Local

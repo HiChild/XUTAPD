@@ -3,6 +3,7 @@ package common
 import (
 	"XUTAPD/models"
 	"fmt"
+	"github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"net/url"
@@ -11,13 +12,13 @@ import (
 var db *gorm.DB
 
 func InitDB() *gorm.DB {
-	username := "root"
-	password := "7WzhXRTJdSEZWknE"
-	host := "120.53.228.79"
-	port := "3306"
-	database := "xutapd"
-	charset := "utf8mb4"
-	loc := "Local"
+	username := viper.GetString("datasource.username")
+	password := viper.GetString("datasource.password")
+	host := viper.GetString("datasource.host")
+	port := viper.GetString("datasource.port")
+	database := viper.GetString("datasource.database")
+	charset := viper.GetString("datasource.charset")
+	loc := viper.GetString("datasource.loc")
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=%s&parseTime=True&loc=%s",
 		username,
 		password,
