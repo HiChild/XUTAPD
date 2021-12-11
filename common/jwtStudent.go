@@ -6,21 +6,13 @@ import (
 	"time"
 )
 
-//RSA加密的密钥
-var jwtKey = []byte("a_secret_key")
-//定义Claims
-type Claims struct {
-	UserId uint
-	//嵌入jwt自定义的Claims
-	jwt.StandardClaims
-}
 
 //发放Token 给User
-func ReleaseToken(user models.User) (string, error) {
+func ReleaseTokenStudent(student models.Student) (string, error) {
 	expirationTime := time.Now().Add(7 * 24 * time.Hour)
 	//设置Claims
-	claims := &Claims{
-		UserId:         user.ID,
+	studentClaims := &Claims{
+		UserId:         student.ID,
 		StandardClaims: jwt.StandardClaims{
 			//过期时间
 			ExpiresAt: expirationTime.Unix(),
@@ -29,12 +21,12 @@ func ReleaseToken(user models.User) (string, error) {
 			//发放机构
 			Issuer: "xutapd.dev",
 			//主题
-			Subject: "user Token",
+			Subject: "student Token",
 		},
 	}
 
 	//选择HS的加密算法
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, studentClaims)
 	tokenString, err := token.SignedString(jwtKey)
 	if err != nil {
 		return "", err
@@ -43,12 +35,12 @@ func ReleaseToken(user models.User) (string, error) {
 }
 
 //解析Token
-func ParseToken(tokenString string) (*jwt.Token, *Claims, error){
-	claims := &Claims{}
+func ParseTokenStudent(tokenString string) (*jwt.Token, *Claims, error){
+	studentClaims := &Claims{}
 
-	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+	token, err := jwt.ParseWithClaims(tokenString, studentClaims, func(token *jwt.Token) (interface{}, error) {
 		return jwtKey, nil
 	})
-	return token, claims, err
+	return token, studentClaims, err
 }
 

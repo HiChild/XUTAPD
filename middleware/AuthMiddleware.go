@@ -25,7 +25,7 @@ func AuthMiddleWare() gin.HandlerFunc {
 
 		tokenString = tokenString[7:]
 
-		token, claims, err := common.ParseToken(tokenString)
+		token, claims, err := common.ParseTokenStudent(tokenString)
 		if err != nil || !token.Valid {
 			response.Response(ctx, http.StatusUnauthorized, 401, nil, "权限不足")
 			ctx.Abort()
@@ -35,18 +35,18 @@ func AuthMiddleWare() gin.HandlerFunc {
 		//通过后获取userId,
 		userId := claims.UserId
 		DB := common.GetDB()
-		var user models.User
-		DB.First(&user, userId)
+		var student models.Student
+		DB.First(&student, userId)
 
 		//查出用户
-		if user.ID == 0 {
+		if student.ID == 0 {
 			response.Response(ctx, http.StatusUnauthorized, 401, nil, "权限不足")
 			ctx.Abort()
 			return
 		}
 
 		//加入到上下文中
-		ctx.Set("user", user)
+		ctx.Set("student", student)
 
 		//继续向下执行!!!!!!!!
 		ctx.Next()
