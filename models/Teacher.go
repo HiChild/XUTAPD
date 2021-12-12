@@ -8,8 +8,8 @@ import (
 type Teacher struct {
 	ID uint `gorm:"primarykey"`
 	CreatedAt time.Time
-	UpdateDAt time.Time
-	DeleteDAt gorm.DeletedAt
-	UserName string `gorm:"size:20;not null;unique" form:"username"`
+	UpdatedAt time.Time
+	DeletedAt gorm.DeletedAt
+	TeacherName string `gorm:"size:20;not null;unique" form:"teacher_name"`
 	Password string `gorm:"size:255;not null;" form:"password"`
 }
