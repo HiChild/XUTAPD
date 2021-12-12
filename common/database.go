@@ -32,7 +32,11 @@ func InitDB() *gorm.DB {
 	if err != nil {
 		fmt.Printf("connect Mysql Error: %v", err)
 	}
+
 	DB.AutoMigrate(&models.User{}) //自动迁移
+	DB.AutoMigrate(&models.Student{})
+	DB.AutoMigrate(&models.Teacher{})
+
 	//传递全局变量
 	db = DB
 	return DB
