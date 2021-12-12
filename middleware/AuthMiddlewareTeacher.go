@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func AuthMiddleWare() gin.HandlerFunc {
+func AuthMiddleWareTeacher() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		//获取authorization Header
 		tokenString := ctx.GetHeader("Authorization")
@@ -36,18 +36,18 @@ func AuthMiddleWare() gin.HandlerFunc {
 		userId := claims.UserId
 
 		DB := common.GetDB()
-		var user models.User
-		DB.First(&user, userId)
+		var teacher models.Teacher
+		DB.First(&teacher, userId)
 
 		//查出用户
-		if user.ID == 0 {
+		if teacher.ID == 0 {
 			response.Response(ctx, http.StatusUnauthorized, 401, nil, "权限不足")
 			ctx.Abort()
 			return
 		}
 
 		//加入到上下文中
-		ctx.Set("user", user)
+		ctx.Set("teacher", teacher)
 
 		//继续向下执行!!!!!!!!
 		ctx.Next()

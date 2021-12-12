@@ -17,12 +17,12 @@ func CollectRoutes(r *gin.Engine) *gin.Engine {
 	studentGroup := r.Group("student")
 	studentGroup.POST("/register", studentcontroller.Register)
 	studentGroup.POST("/login", studentcontroller.Login)
-	studentGroup.GET("/info", middleware.AuthMiddleWare(),studentcontroller.GetInfo)
+	studentGroup.GET("/info", middleware.AuthMiddleWareStudent(),studentcontroller.GetInfo)
 
 	teacherGroup := r.Group("teacher")
 	teacherGroup.POST("/register", teachercontroller.Register)
 	teacherGroup.POST("/login", teachercontroller.Login)
-	//teacherGroup.GET("/info", teachercontroller.Info)
+	teacherGroup.GET("/info",middleware.AuthMiddleWareTeacher(), teachercontroller.Info)
 
 	return r
 }

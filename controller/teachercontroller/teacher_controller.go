@@ -2,6 +2,7 @@ package teachercontroller
 
 import (
 	"XUTAPD/common"
+	"XUTAPD/dto"
 	"XUTAPD/models"
 	"XUTAPD/response"
 	"github.com/gin-gonic/gin"
@@ -99,4 +100,10 @@ func Login(ctx *gin.Context) {
 	//登陆成功
 	//返回结果
 	response.Success(ctx, gin.H{"token": token}, "登录成功")
+}
+
+func Info (ctx *gin.Context) {
+	teacher, _ := ctx.Get("teacher")
+
+	response.Success(ctx, gin.H{"teacher": dto.ToTeacherDTO(teacher.(models.Teacher))}, "ok")
 }
