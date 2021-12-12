@@ -21,7 +21,7 @@ func CollectRoutes(r *gin.Engine) *gin.Engine {
 
 	teacherGroup := r.Group("teacher")
 	teacherGroup.POST("/register", teachercontroller.Register)
-	//teacherGroup.POST("/login", teachercontroller.Login)
+	teacherGroup.POST("/login", teachercontroller.Login)
 	//teacherGroup.GET("/info", teachercontroller.Info)
 
 	return r

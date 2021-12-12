@@ -52,10 +52,9 @@ func Register(ctx *gin.Context) {
 }
 
 func Login(ctx *gin.Context) {
-	//获取参数
 	DB := common.GetDB()
-	var student models.Student
 	//绑定参数
+	var student models.Student
 	ctx.Bind(&student)
 	studentName := student.StudentName
 	password := student.Password
